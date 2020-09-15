@@ -98,9 +98,9 @@ disqusShortname = ""
       url = "blogs/tempus"
 
     [[params.tiles.showcase]]
-      title = "Tempus"
-      subtitle = "Feugiat Amet Tempus"
-      image = "pic02.jpg"
+      title = "IVA Driebergen"
+      subtitle = "Automotive Business Management"
+      image = "projects/IVA_image.jpg"
       url = "blogs/tempus"
 
     [[params.tiles.showcase]]
