@@ -94,7 +94,7 @@ disqusShortname = ""
     [[params.tiles.showcase]]
       title = "Aston Martin"
       subtitle = "Merchandise & Licensing"
-      image = "dbx-main-banner.jpg"
+      image = "DBX_image.jpg"
       url = "blogs/aliquam"
 
     [[params.tiles.showcase]]
