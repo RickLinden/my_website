@@ -105,15 +105,15 @@ disqusShortname = ""
 
     [[params.tiles.showcase]]
       title = "Airbnb data"
-      subtitle = "What variables influence your stay"
-      image = "insert project image here"
-      url = "blogs/magna"
+      subtitle = "What variables influence your stay in Copenhagen"
+      image = "projects"
+      url = ""
 
     [[params.tiles.showcase]]
-      title = "Boris bike data"
+      title = "Boris bikes data"
       subtitle = "What variables influence bike rental figures"
-      image = "pic04.jpg"
-      url = "blogs/ipsum"
+      image = ""
+      url = "projects/Londonbikesproject/borisbikes/"
 
     #[[params.tiles.showcase]]
       #title = "Consequat"

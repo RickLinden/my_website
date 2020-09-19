@@ -1,0 +1,1035 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<meta name="description" content="The fuel of the future is not petrol, it is data. For a mobility company to thrive in the future, data will become the most important resource. I am an LBS student with an ambition to break through in the world of AUtomotive tech, using a combination of traditional automotive knowledge and data science.">
+	<meta name="author" content="Rick van der Linden">
+	<meta name="generator" content="Hugo 0.74.3" />
+	<title>Borisbikes &middot; Rick van der Linden</title>
+	<!-- Stylesheets -->
+	
+	<link rel="stylesheet" href="/css/main.css"/>
+	
+	
+
+	
+
+	<!-- Custom Fonts -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	
+	<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico">
+	<link rel="icon" type="image/x-icon" href="/favicon.ico">
+	
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="js/ie/html5shiv.js"></script>
+	<script src="js/ie/html5shiv.jsrespond.min.js"></script>
+	<![endif]-->
+</head>
+
+    <body>
+
+    <!-- Wrapper -->
+        <div id="wrapper">
+
+            <!-- Header -->
+    <header id="header" class="alt">
+        <a href="/" class="logo"><strong>Rick van der Linden</strong> <span></span></a>
+        <nav>
+            <a href="#menu">Menu</a>
+        </nav>
+    </header>
+
+<!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            
+                <li><a href="/">Home</a></li>
+            
+                <li><a href="/blogs">Blogs</a></li>
+            
+                <li><a href="/elements.html">Elements</a></li>
+            
+
+        </ul>
+        <ul class="actions vertical">
+            
+                <li><a href="/blogs" class="button special fit">Get Started</a></li>
+            
+            
+                <li><a href="/" class="button fit">Log In</a></li>
+            
+        </ul>
+    </nav>
+
+        <!-- Main -->
+            <div id="main" class="alt">
+
+                
+                    <section id="one">
+                        <div class="inner">
+                            <header class="major">
+                                <h1>Borisbikes</h1>
+                            </header>
+                            
+                            
+
+
+<p>#A new way to explore London
+In my first weeks in London I tried to see as much as possible from the city. Together with some newly found LBS friends, we made a plan of visiting as many places as we could before the program at LBS would start. Normally we would walk everywhere, but for the further places you will need public transport. We preferred to stay away from the crowded underground and busses because of the corona risk. This lead us to taking bikes through London. Me being Dutch and a MAM student, this immediately sparked my interest in some data research on the subject. I wanted to explore what variables influence the daily bike hire.</p>
+<p>First of all I looked at the data I would be dealing with. From this I ran an exploratory data analysis to explore the different variables and their relationship with the bikes hired per day. I used data from 2011 to 2020 from Transport of London data, for this analysis.</p>
+<p>The data analyisis will be divided in 2 parts; Date anaylisis, and weather analysis. At the end I will give a summary of the findings</p>
+<p>#Exploratory data analysis</p>
+<pre><code>## Rows: 3,439
+## Columns: 14
+## $ date          &lt;chr&gt; &quot;01-01-11&quot;, &quot;02-01-11&quot;, &quot;03-01-11&quot;, &quot;04-01-11&quot;, &quot;05-0...
+## $ bikes_hired   &lt;dbl&gt; 4555, 6250, 7262, 13430, 13757, 9595, 9294, 9338, 105...
+## $ season        &lt;dbl&gt; 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,...
+## $ min_temp      &lt;dbl&gt; 7.2, 4.0, 2.9, NA, 7.1, NA, 10.8, 10.4, 7.2, 8.9, 8.3...
+## $ max_temp      &lt;dbl&gt; NA, NA, NA, 0.3, 3.8, NA, 1.0, NA, NA, -1.9, NA, 3.7,...
+## $ avg_temp      &lt;dbl&gt; 5.6, 2.9, 1.4, 2.7, 5.6, 4.1, 6.1, 6.9, 3.1, 4.3, 5.8...
+## $ avg_humidity  &lt;dbl&gt; 84, 79, 80, 87, 84, 92, 92, 82, 79, 87, 82, 89, 89, 8...
+## $ avg_pressure  &lt;dbl&gt; 1025, 1028, 1024, 1013, 1000, 996, 999, 997, 1012, 10...
+## $ avg_windspeed &lt;dbl&gt; 10, 8, 6, 6, 19, 5, 11, 23, 16, 14, 16, 16, 23, 24, 2...
+## $ rainfall_mm   &lt;dbl&gt; 0.0, 0.5, 0.0, 0.0, 0.0, 0.5, 11.4, 13.0, 1.0, 0.0, 7...
+## $ rain          &lt;lgl&gt; TRUE, FALSE, FALSE, TRUE, TRUE, TRUE, TRUE, TRUE, FAL...
+## $ fog           &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE,...
+## $ thunderstorm  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS...
+## $ snow          &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE,...</code></pre>
+<pre><code>## Adding missing grouping variables: `season`</code></pre>
+<pre><code>## # A tibble: 3,439 x 2
+## # Groups:   season [4]
+##    season date    
+##     &lt;dbl&gt; &lt;chr&gt;   
+##  1      1 01-01-11
+##  2      1 02-01-11
+##  3      1 03-01-11
+##  4      1 04-01-11
+##  5      1 05-01-11
+##  6      1 06-01-11
+##  7      1 07-01-11
+##  8      1 08-01-11
+##  9      1 09-01-11
+## 10      1 10-01-11
+## # ... with 3,429 more rows</code></pre>
+<table style='width: auto;'
+        class='table table-condensed'>
+<caption>
+(#tab:clean data)Data summary
+</caption>
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:left;">
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Name
+</td>
+<td style="text-align:left;">
+Borisbikes_clean
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of rows
+</td>
+<td style="text-align:left;">
+3439
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Number of columns
+</td>
+<td style="text-align:left;">
+21
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+_______________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Column type frequency:
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+character
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+factor
+</td>
+<td style="text-align:left;">
+2
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+logical
+</td>
+<td style="text-align:left;">
+4
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+numeric
+</td>
+<td style="text-align:left;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+________________________
+</td>
+<td style="text-align:left;">
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Group variables
+</td>
+<td style="text-align:left;">
+None
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: character</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+min
+</th>
+<th style="text-align:right;">
+max
+</th>
+<th style="text-align:right;">
+empty
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+<th style="text-align:right;">
+whitespace
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+date
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+8
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+3439
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+season_name
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+6
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+4
+</td>
+<td style="text-align:right;">
+0
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: factor</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:left;">
+ordered
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+<th style="text-align:left;">
+top_counts
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+month_name
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+12
+</td>
+<td style="text-align:left;">
+Jan: 310, Mar: 310, May: 310, Apr: 300
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+day_of_week
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+7
+</td>
+<td style="text-align:left;">
+Mon: 492, Tue: 492, Fri: 492, Thu: 491
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: logical</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:left;">
+count
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+rain
+</td>
+<td style="text-align:right;">
+851
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.62
+</td>
+<td style="text-align:left;">
+TRU: 1595, FAL: 993
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+fog
+</td>
+<td style="text-align:right;">
+851
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.07
+</td>
+<td style="text-align:left;">
+FAL: 2403, TRU: 185
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+thunderstorm
+</td>
+<td style="text-align:right;">
+851
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.03
+</td>
+<td style="text-align:left;">
+FAL: 2512, TRU: 76
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+snow
+</td>
+<td style="text-align:right;">
+851
+</td>
+<td style="text-align:right;">
+0.75
+</td>
+<td style="text-align:right;">
+0.02
+</td>
+<td style="text-align:left;">
+FAL: 2533, TRU: 55
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: numeric</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:right;">
+mean
+</th>
+<th style="text-align:right;">
+sd
+</th>
+<th style="text-align:right;">
+p0
+</th>
+<th style="text-align:right;">
+p25
+</th>
+<th style="text-align:right;">
+p50
+</th>
+<th style="text-align:right;">
+p75
+</th>
+<th style="text-align:right;">
+p100
+</th>
+<th style="text-align:left;">
+hist
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+bikes_hired
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+26158.95
+</td>
+<td style="text-align:right;">
+9135.13
+</td>
+<td style="text-align:right;">
+3531.0
+</td>
+<td style="text-align:right;">
+19626.00
+</td>
+<td style="text-align:right;">
+26022.0
+</td>
+<td style="text-align:right;">
+32759.0
+</td>
+<td style="text-align:right;">
+73094.0
+</td>
+<td style="text-align:left;">
+&lt;U+2583&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+season
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+2.46
+</td>
+<td style="text-align:right;">
+1.12
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+2.0
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2587&gt;&lt;U+2587&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+min_temp
+</td>
+<td style="text-align:right;">
+1877
+</td>
+<td style="text-align:right;">
+0.45
+</td>
+<td style="text-align:right;">
+16.48
+</td>
+<td style="text-align:right;">
+6.19
+</td>
+<td style="text-align:right;">
+-1.2
+</td>
+<td style="text-align:right;">
+11.93
+</td>
+<td style="text-align:right;">
+16.7
+</td>
+<td style="text-align:right;">
+20.9
+</td>
+<td style="text-align:right;">
+36.7
+</td>
+<td style="text-align:left;">
+&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2581&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+max_temp
+</td>
+<td style="text-align:right;">
+1929
+</td>
+<td style="text-align:right;">
+0.44
+</td>
+<td style="text-align:right;">
+7.62
+</td>
+<td style="text-align:right;">
+5.14
+</td>
+<td style="text-align:right;">
+-8.2
+</td>
+<td style="text-align:right;">
+3.90
+</td>
+<td style="text-align:right;">
+7.9
+</td>
+<td style="text-align:right;">
+11.8
+</td>
+<td style="text-align:right;">
+20.0
+</td>
+<td style="text-align:left;">
+&lt;U+2581&gt;&lt;U+2585&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2582&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg_temp
+</td>
+<td style="text-align:right;">
+27
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+11.70
+</td>
+<td style="text-align:right;">
+5.41
+</td>
+<td style="text-align:right;">
+-4.1
+</td>
+<td style="text-align:right;">
+7.60
+</td>
+<td style="text-align:right;">
+11.6
+</td>
+<td style="text-align:right;">
+15.9
+</td>
+<td style="text-align:right;">
+28.6
+</td>
+<td style="text-align:left;">
+&lt;U+2581&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2585&gt;&lt;U+2581&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg_humidity
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:right;">
+74.91
+</td>
+<td style="text-align:right;">
+10.84
+</td>
+<td style="text-align:right;">
+37.0
+</td>
+<td style="text-align:right;">
+67.00
+</td>
+<td style="text-align:right;">
+76.0
+</td>
+<td style="text-align:right;">
+83.0
+</td>
+<td style="text-align:right;">
+100.0
+</td>
+<td style="text-align:left;">
+&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2586&gt;&lt;U+2587&gt;&lt;U+2582&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg_pressure
+</td>
+<td style="text-align:right;">
+773
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:right;">
+1015.10
+</td>
+<td style="text-align:right;">
+10.24
+</td>
+<td style="text-align:right;">
+979.0
+</td>
+<td style="text-align:right;">
+1009.00
+</td>
+<td style="text-align:right;">
+1016.0
+</td>
+<td style="text-align:right;">
+1022.0
+</td>
+<td style="text-align:right;">
+1044.0
+</td>
+<td style="text-align:left;">
+&lt;U+2581&gt;&lt;U+2582&gt;&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2581&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+avg_windspeed
+</td>
+<td style="text-align:right;">
+745
+</td>
+<td style="text-align:right;">
+0.78
+</td>
+<td style="text-align:right;">
+14.01
+</td>
+<td style="text-align:right;">
+6.10
+</td>
+<td style="text-align:right;">
+3.0
+</td>
+<td style="text-align:right;">
+10.00
+</td>
+<td style="text-align:right;">
+13.0
+</td>
+<td style="text-align:right;">
+18.0
+</td>
+<td style="text-align:right;">
+47.0
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2582&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+rainfall_mm
+</td>
+<td style="text-align:right;">
+51
+</td>
+<td style="text-align:right;">
+0.99
+</td>
+<td style="text-align:right;">
+1.67
+</td>
+<td style="text-align:right;">
+3.68
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+0.00
+</td>
+<td style="text-align:right;">
+0.0
+</td>
+<td style="text-align:right;">
+1.5
+</td>
+<td style="text-align:right;">
+48.0
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;&lt;U+2581&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+id
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+1720.00
+</td>
+<td style="text-align:right;">
+992.90
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+860.50
+</td>
+<td style="text-align:right;">
+1720.0
+</td>
+<td style="text-align:right;">
+2579.5
+</td>
+<td style="text-align:right;">
+3439.0
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+year
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+15.73
+</td>
+<td style="text-align:right;">
+8.80
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+8.00
+</td>
+<td style="text-align:right;">
+16.0
+</td>
+<td style="text-align:right;">
+23.0
+</td>
+<td style="text-align:right;">
+31.0
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+month
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+6.37
+</td>
+<td style="text-align:right;">
+3.46
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+3.00
+</td>
+<td style="text-align:right;">
+6.0
+</td>
+<td style="text-align:right;">
+9.0
+</td>
+<td style="text-align:right;">
+12.0
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2586&gt;&lt;U+2585&gt;&lt;U+2585&gt;&lt;U+2587&gt;
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+day
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1.00
+</td>
+<td style="text-align:right;">
+4.00
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+1.0
+</td>
+<td style="text-align:right;">
+2.00
+</td>
+<td style="text-align:right;">
+4.0
+</td>
+<td style="text-align:right;">
+6.0
+</td>
+<td style="text-align:right;">
+7.0
+</td>
+<td style="text-align:left;">
+&lt;U+2587&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2583&gt;&lt;U+2587&gt;
+</td>
+</tr>
+</tbody>
+</table>
+<p>##Date analysis</p>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/date%20data-1.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/date%20data-2.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/date%20data-3.png" width="672" />
+## Weather analysis</p>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 27 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 27 rows containing missing values (geom_point).</code></pre>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-1.png" width="672" /></p>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 51 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 51 rows containing missing values (geom_point).</code></pre>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-2.png" width="672" /></p>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 745 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 745 rows containing missing values (geom_point).</code></pre>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-3.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-4.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-5.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-6.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-7.png" width="672" /></p>
+
+                        </div>
+                    </section>
+            <!-- Disqus Inject -->
+                
+            </div>
+            
+        <!-- Footer -->
+            
+                <!-- Footer -->
+    <footer id="footer">
+        <div class="inner">
+            <ul class="icons">
+                
+                    <li><a href="https://www.twitter.com" class="icon alt fa-twitter" target="_blank"><span class="label">Twitter</span></a></li>
+                
+                    <li><a href="https://www.facebook.com" class="icon alt fa-facebook" target="_blank"><span class="label">Facebook</span></a></li>
+                
+                    <li><a href="https://www.instagram.com" class="icon alt fa-instagram" target="_blank"><span class="label">Instagram</span></a></li>
+                
+                    <li><a href="https://www.github.com" class="icon alt fa-github" target="_blank"><span class="label">GitHub</span></a></li>
+                
+                    <li><a href="https://www.linkedin.com" class="icon alt fa-linkedin" target="_blank"><span class="label">LinkedIn</span></a></li>
+                
+            </ul>
+            <ul class="copyright">
+                <li>&copy; Company Name</li>
+                
+                <li>Design:  <a href="https://www.html5up.net">HTML5 UP</a></li>
+                
+            </ul>
+        </div>
+    </footer>
+
+            
+        </div>
+
+    <!-- Scripts -->
+        <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+
+    
+
+    <!-- Main JS -->
+    <script src="/js/main.js"></script>
+
+    
+
+    
+
+    </body>
+</html>

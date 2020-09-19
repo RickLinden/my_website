@@ -1,0 +1,212 @@
+---
+title: "Borisbikes"
+author: "Rick van der Linden"
+date: "19/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(data.table)
+library(skimr)
+library(broom)
+library(lubridate)
+library(GGally)
+library(kableExtra)
+library(huxtable)
+library(car)
+library(here)
+
+Borisbikes <- read_csv(here("data", "londonBikes.csv"))
+
+```
+
+#A new way to explore London
+In my first weeks in London I tried to see as much as possible from the city. Together with some newly found LBS friends, we made a plan of visiting as many places as we could before the program at LBS would start. Normally we would walk everywhere, but for the further places you will need public transport. We preferred to stay away from the crowded underground and busses because of the corona risk. This lead us to taking bikes through London. Me being Dutch and a MAM student, this immediately sparked my interest in some data research on the subject. I wanted to explore what variables influence the daily bike hire.
+
+First of all I looked at the data I would be dealing with. From this I ran an exploratory data analysis to explore the different variables and their relationship with the bikes hired per day. I used data from 2011 to 2020 from Transport of London data, for this analysis.
+
+The data analyisis will be divided in 2 parts; Date anaylisis, and weather analysis. At the end I will give a summary of the findings
+
+#Exploratory data analysis
+
+```{r glimpse, echo = FALSE}
+glimpse(Borisbikes)
+
+#Looking at what numbers should be in what season
+Borisbikes %>% 
+  group_by(season) %>% 
+  select(date)
+```
+
+```{r clean data, echo = FALSE}
+
+Borisbikes_clean <- Borisbikes %>% 
+  mutate(
+    id = row_number(),
+    #date = dmy(date),
+    year=year(date),
+    month = month(date),
+    month_name=month(date, label = TRUE),
+    day = wday(date, week_start = 1),
+    day_of_week = wday(date, label = TRUE,week_start = 1),
+    season_name = case_when(
+      season == 1 ~ "Winter",
+      season == 2 ~ "Spring",
+      season == 3 ~ "Summer",
+      season == 4 ~ "Autumn"
+    ))
+
+skim(Borisbikes_clean)
+```
+##Date analysis
+
+```{r date data, echo = FALSE}
+ggplot(Borisbikes_clean, aes(
+  x = date,
+  y = bikes_hired,
+  colour = season_name
+)) +
+  geom_point() +
+  geom_smooth() +
+  labs(
+    title = "Bikes hired per day",
+    caption = "Source: Londonbikes.csv",
+    x = "date",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = day_of_week,
+  y = bikes_hired,
+)) +
+  geom_boxplot() +
+  labs(
+    title = "Bikes hired per day of the week",
+    caption = "Source: Londonbikes.csv",
+    x = "",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = month_name,
+  y = bikes_hired,
+)) +
+  geom_boxplot() +
+  labs(
+    title = "Bikes hired per day",
+    caption = "Source: Londonbikes.csv",
+    x = "",
+    y = "Bikes hired"
+  ) +
+  NULL
+```
+## Weather analysis
+
+```{r weather data, echo = FALSE}
+
+ggplot(Borisbikes_clean, aes(
+  x = avg_temp,
+  y = bikes_hired
+  #colour = "red"
+)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  labs(
+    title = "Bikes hired with average temparature in Celsius",
+    caption = "Source: Londonbikes.csv",
+    x = "Average Temperatrue in Celsius",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = rainfall_mm,
+  y = bikes_hired
+  #colour = "red"
+)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  labs(
+    title = "Bikes hired with rainfall in mm",
+    caption = "Source: Londonbikes.csv",
+    x = "rainfall in mm",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = avg_humidity,
+  y = bikes_hired
+  #colour = "red"
+)) +
+  geom_point() +
+  geom_smooth(method = lm) +
+  labs(
+    title = "Bikes hired with rainfall in mm",
+    caption = "Source: Londonbikes.csv",
+    x = "rainfall in mm",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = !is.na(rain),
+  y = bikes_hired,
+)) +
+  geom_boxplot() +
+  labs(
+    title = "Bikes hired per day",
+    caption = "Source: Londonbikes.csv",
+    x = "",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = !is.na(fog),
+  y = bikes_hired,
+)) +
+  geom_boxplot() +
+  labs(
+    title = "Bikes hired per day",
+    caption = "Source: Londonbikes.csv",
+    x = "",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = !is.na(thunderstorm),
+  y = bikes_hired,
+)) +
+  geom_boxplot() +
+  labs(
+    title = "Bikes hired per day",
+    caption = "Source: Londonbikes.csv",
+    x = "",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+ggplot(Borisbikes_clean, aes(
+  x = !is.na(snow),
+  y = bikes_hired,
+)) +
+  geom_boxplot() +
+  labs(
+    title = "Bikes hired per day",
+    caption = "Source: Londonbikes.csv",
+    x = "",
+    y = "Bikes hired"
+  ) +
+  NULL
+
+```
+
+
+
