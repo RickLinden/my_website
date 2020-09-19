@@ -7,11 +7,15 @@ output: html_document
 
 
 
-<p>#A new way to explore London
-In my first weeks in London I tried to see as much as possible from the city. Together with some newly found LBS friends, we made a plan of visiting as many places as we could before the program at LBS would start. Normally we would walk everywhere, but for the further places you will need public transport. We preferred to stay away from the crowded underground and busses because of the corona risk. This lead us to taking bikes through London. Me being Dutch and a MAM student, this immediately sparked my interest in some data research on the subject. I wanted to explore what variables influence the daily bike hire.</p>
+<div id="a-new-way-to-explore-london" class="section level1">
+<h1>A new way to explore London</h1>
+<p>In my first weeks in London I tried to see as much as possible from the city. Together with some newly found LBS friends, we made a plan of visiting as many places as we could before the program at LBS would start. Normally we would walk everywhere, but for the further places you will need public transport. We preferred to stay away from the crowded underground and busses because of the corona risk. This lead us to taking bikes through London. Me being Dutch and a MAM student, this immediately sparked my interest in some data research on the subject. I wanted to explore what variables influence the daily bike hire.</p>
 <p>First of all I looked at the data I would be dealing with. From this I ran an exploratory data analysis to explore the different variables and their relationship with the bikes hired per day. I used data from 2011 to 2020 from Transport of London data, for this analysis.</p>
-<p>The data analyisis will be divided in 2 parts; Date anaylisis, and weather analysis. At the end I will give a summary of the findings</p>
-<p>#Exploratory data analysis</p>
+<p>The data analysis will be divided in 2 parts; Date analysis, and weather analysis.</p>
+</div>
+<div id="exploratory-data-analysis" class="section level1">
+<h1>Exploratory data analysis</h1>
+<p>Let’s first look at the data.</p>
 <pre><code>## Rows: 3,439
 ## Columns: 14
 ## $ date          &lt;chr&gt; &quot;01-01-11&quot;, &quot;02-01-11&quot;, &quot;03-01-11&quot;, &quot;04-01-11&quot;, &quot;05-0...
@@ -28,7 +32,6 @@ In my first weeks in London I tried to see as much as possible from the city. To
 ## $ fog           &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE, FALSE,...
 ## $ thunderstorm  &lt;lgl&gt; FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE, FALS...
 ## $ snow          &lt;lgl&gt; FALSE, FALSE, TRUE, FALSE, FALSE, TRUE, FALSE, FALSE,...</code></pre>
-<pre><code>## Adding missing grouping variables: `season`</code></pre>
 <pre><code>## # A tibble: 3,439 x 2
 ## # Groups:   season [4]
 ##    season date    
@@ -44,6 +47,7 @@ In my first weeks in London I tried to see as much as possible from the city. To
 ##  9      1 09-01-11
 ## 10      1 10-01-11
 ## # ... with 3,429 more rows</code></pre>
+<p>There are a couple of issues with the data that needs to be resolved first. The season is a numerical value, this needs to be converted to text, so that it makes more sense what season the data is in. This is resolved in the following table.</p>
 <table style='width: auto;'
         class='table table-condensed'>
 <caption>
@@ -101,7 +105,15 @@ Column type frequency:
 character
 </td>
 <td style="text-align:left;">
-2
+1
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Date
+</td>
+<td style="text-align:left;">
+1
 </td>
 </tr>
 <tr>
@@ -178,32 +190,6 @@ whitespace
 <tbody>
 <tr>
 <td style="text-align:left;">
-date
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-1
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-8
-</td>
-<td style="text-align:right;">
-0
-</td>
-<td style="text-align:right;">
-3439
-</td>
-<td style="text-align:right;">
-0
-</td>
-</tr>
-<tr>
-<td style="text-align:left;">
 season_name
 </td>
 <td style="text-align:right;">
@@ -226,6 +212,59 @@ season_name
 </td>
 <td style="text-align:right;">
 0
+</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Variable type: Date</strong></p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left;">
+skim_variable
+</th>
+<th style="text-align:right;">
+n_missing
+</th>
+<th style="text-align:right;">
+complete_rate
+</th>
+<th style="text-align:left;">
+min
+</th>
+<th style="text-align:left;">
+max
+</th>
+<th style="text-align:left;">
+median
+</th>
+<th style="text-align:right;">
+n_unique
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+date
+</td>
+<td style="text-align:right;">
+0
+</td>
+<td style="text-align:right;">
+1
+</td>
+<td style="text-align:left;">
+2011-01-01
+</td>
+<td style="text-align:left;">
+2020-05-31
+</td>
+<td style="text-align:left;">
+2015-09-16
+</td>
+<td style="text-align:right;">
+3439
 </td>
 </tr>
 </tbody>
@@ -292,7 +331,7 @@ TRUE
 7
 </td>
 <td style="text-align:left;">
-Mon: 492, Tue: 492, Fri: 492, Thu: 491
+Sat: 492, Sun: 492, Mon: 491, Tue: 491
 </td>
 </tr>
 </tbody>
@@ -790,25 +829,25 @@ year
 1.00
 </td>
 <td style="text-align:right;">
-15.73
+2015.22
 </td>
 <td style="text-align:right;">
-8.80
+2.73
 </td>
 <td style="text-align:right;">
-1.0
+2011.0
 </td>
 <td style="text-align:right;">
-8.00
+2013.00
 </td>
 <td style="text-align:right;">
-16.0
+2015.0
 </td>
 <td style="text-align:right;">
-23.0
+2018.0
 </td>
 <td style="text-align:right;">
-31.0
+2020.0
 </td>
 <td style="text-align:left;">
 &lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2587&gt;&lt;U+2586&gt;
@@ -886,19 +925,25 @@ day
 </tr>
 </tbody>
 </table>
-<p>##Date analysis</p>
-<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/date%20data-1.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/date%20data-2.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/date%20data-3.png" width="672" />
-## Weather analysis</p>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## Warning: Removed 27 rows containing non-finite values (stat_smooth).</code></pre>
-<pre><code>## Warning: Removed 27 rows containing missing values (geom_point).</code></pre>
-<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-1.png" width="672" /></p>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## Warning: Removed 51 rows containing non-finite values (stat_smooth).</code></pre>
-<pre><code>## Warning: Removed 51 rows containing missing values (geom_point).</code></pre>
-<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-2.png" width="672" /></p>
-<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
-<pre><code>## Warning: Removed 745 rows containing non-finite values (stat_smooth).</code></pre>
-<pre><code>## Warning: Removed 745 rows containing missing values (geom_point).</code></pre>
-<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-3.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-4.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-5.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-6.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weather%20data-7.png" width="672" /></p>
+<div id="date-analysis" class="section level2">
+<h2>Date analysis</h2>
+<p>Now that the data is clean, let’s have a look at various date variables.</p>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/date%20overview-1.png" width="672" /></p>
+<p>Here we can see that the overall bike rent has been increasing throughout the years, except for spring and Autumn which have been decreasing since 2018. This could have something to do with the colder Autumns and springs we have been experiencing in the last 2 years.</p>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/weekday%20date%20data-1.png" width="672" /></p>
+<p>We can clearly see that bikes are mostly used during workdays. This tells us that people use bikes more for commute than in their free time.</p>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/month%20date%20data-1.png" width="672" /></p>
+<p>Not surprisingly in the warmer months bikes are rented a lot more than in the colder months.</p>
+</div>
+<div id="weather-analysis" class="section level2">
+<h2>Weather analysis</h2>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/temperature%20weather%20data-1.png" width="672" /></p>
+<p>There is a clear correlation between bikes hired and the temperature.</p>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/rainfall%20weather%20data-1.png" width="672" /></p>
+<p>There is a negative relationship with the rainfall in mm and bikes hired. Although, with the more extreme values it does not seem affected. This could mean that in extreme cases parts of the public transport might have been closed down. So people are forced to take the bikes for transport.</p>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/humidity%20weather%20data-1.png" width="672" /></p>
+<p>In contrast of the rainfall in mm, the humidity does show a strong evidence for a negative correlation with bikes hired.</p>
+<p><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/condition%20weather%20data-1.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/condition%20weather%20data-2.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/condition%20weather%20data-3.png" width="672" /><img src="/Projects/LondonBikesproject/Borisbikes_files/figure-html/condition%20weather%20data-4.png" width="672" />
+Thunderstorm and fog pretty much don’t affect the bikes hired at all. Rain slightly diminishes the bikes hired. Snow, however, affects the bikes hired quite high.</p>
+</div>
+</div>

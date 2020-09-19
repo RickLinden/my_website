@@ -23,16 +23,18 @@ Borisbikes <- read_csv(here("data", "londonBikes.csv"))
 
 ```
 
-#A new way to explore London
+# A new way to explore London
 In my first weeks in London I tried to see as much as possible from the city. Together with some newly found LBS friends, we made a plan of visiting as many places as we could before the program at LBS would start. Normally we would walk everywhere, but for the further places you will need public transport. We preferred to stay away from the crowded underground and busses because of the corona risk. This lead us to taking bikes through London. Me being Dutch and a MAM student, this immediately sparked my interest in some data research on the subject. I wanted to explore what variables influence the daily bike hire.
 
 First of all I looked at the data I would be dealing with. From this I ran an exploratory data analysis to explore the different variables and their relationship with the bikes hired per day. I used data from 2011 to 2020 from Transport of London data, for this analysis.
 
-The data analyisis will be divided in 2 parts; Date anaylisis, and weather analysis. At the end I will give a summary of the findings
+The data analysis will be divided in 2 parts; Date analysis, and weather analysis.
 
-#Exploratory data analysis
+# Exploratory data analysis
 
-```{r glimpse, echo = FALSE}
+Let's first look at the data.
+
+```{r glimpse, echo = FALSE, message = FALSE}
 glimpse(Borisbikes)
 
 #Looking at what numbers should be in what season
@@ -41,12 +43,14 @@ Borisbikes %>%
   select(date)
 ```
 
-```{r clean data, echo = FALSE}
+There are a couple of issues with the data that needs to be resolved first. The season is a numerical value, this needs to be converted to text, so that it makes more sense what season the data is in. This is resolved in the following table.
+
+```{r clean data, echo = FALSE, message = FALSE}
 
 Borisbikes_clean <- Borisbikes %>% 
   mutate(
     id = row_number(),
-    #date = dmy(date),
+    date = dmy(date),
     year=year(date),
     month = month(date),
     month_name=month(date, label = TRUE),
@@ -61,9 +65,11 @@ Borisbikes_clean <- Borisbikes %>%
 
 skim(Borisbikes_clean)
 ```
-##Date analysis
 
-```{r date data, echo = FALSE}
+## Date analysis
+Now that the data is clean, let's have a look at various date variables.
+
+```{r date overview, echo = FALSE, message = FALSE}
 ggplot(Borisbikes_clean, aes(
   x = date,
   y = bikes_hired,
@@ -73,12 +79,17 @@ ggplot(Borisbikes_clean, aes(
   geom_smooth() +
   labs(
     title = "Bikes hired per day",
-    caption = "Source: Londonbikes.csv",
+    caption = "Source: Transport of London",
     x = "date",
     y = "Bikes hired"
   ) +
+  theme_minimal() +
   NULL
+```
 
+Here we can see that the overall bike rent has been increasing throughout the years, except for spring and Autumn which have been decreasing since 2018. This could have something to do with the colder Autumns and springs we have been experiencing in the last 2 years.
+
+```{r weekday date data, echo = FALSE, message = FALSE}
 ggplot(Borisbikes_clean, aes(
   x = day_of_week,
   y = bikes_hired,
@@ -86,11 +97,16 @@ ggplot(Borisbikes_clean, aes(
   geom_boxplot() +
   labs(
     title = "Bikes hired per day of the week",
-    caption = "Source: Londonbikes.csv",
+    caption = "Source: Transport of London",
     x = "",
     y = "Bikes hired"
   ) +
   NULL
+```
+
+We can clearly see that bikes are mostly used during workdays. This tells us that people use bikes more for commute than in their free time.
+
+```{r month date data, echo = FALSE, message = FALSE}
 
 ggplot(Borisbikes_clean, aes(
   x = month_name,
@@ -99,17 +115,23 @@ ggplot(Borisbikes_clean, aes(
   geom_boxplot() +
   labs(
     title = "Bikes hired per day",
-    caption = "Source: Londonbikes.csv",
+    caption = "Source: Transport of London",
     x = "",
     y = "Bikes hired"
   ) +
   NULL
+
 ```
+
+Not surprisingly in the warmer months bikes are rented a lot more than in the colder months.
+
 ## Weather analysis
 
-```{r weather data, echo = FALSE}
+```{r temperature weather data, echo = FALSE, message=FALSE}
 
-ggplot(Borisbikes_clean, aes(
+Borisbikes_clean %>% 
+  filter(!is.na(avg_temp)) %>% 
+ggplot(aes(
   x = avg_temp,
   y = bikes_hired
   #colour = "red"
@@ -118,13 +140,21 @@ ggplot(Borisbikes_clean, aes(
   geom_smooth(method = lm) +
   labs(
     title = "Bikes hired with average temparature in Celsius",
-    caption = "Source: Londonbikes.csv",
+    caption = "Source: Transport of London",
     x = "Average Temperatrue in Celsius",
     y = "Bikes hired"
   ) +
   NULL
 
-ggplot(Borisbikes_clean, aes(
+```
+
+There is a clear correlation between bikes hired and the temperature.
+
+```{r rainfall weather data, echo = FALSE, message=FALSE}
+
+Borisbikes_clean %>% 
+  filter(!is.na(rainfall_mm)) %>% 
+ggplot(aes(
   x = rainfall_mm,
   y = bikes_hired
   #colour = "red"
@@ -133,13 +163,21 @@ ggplot(Borisbikes_clean, aes(
   geom_smooth(method = lm) +
   labs(
     title = "Bikes hired with rainfall in mm",
-    caption = "Source: Londonbikes.csv",
+    caption = "Source: Transport of London",
     x = "rainfall in mm",
     y = "Bikes hired"
   ) +
   NULL
 
-ggplot(Borisbikes_clean, aes(
+```
+
+There is a negative relationship with the rainfall in mm and bikes hired. Although, with the more extreme values it does not seem affected. This could mean that in extreme cases parts of the public transport might have been closed down. So people are forced to take the bikes for transport.
+
+```{r humidity weather data, echo = FALSE, message=FALSE}
+
+Borisbikes_clean %>% 
+  filter(!is.na(avg_humidity)) %>% 
+ggplot(aes(
   x = avg_humidity,
   y = bikes_hired
   #colour = "red"
@@ -147,66 +185,77 @@ ggplot(Borisbikes_clean, aes(
   geom_point() +
   geom_smooth(method = lm) +
   labs(
-    title = "Bikes hired with rainfall in mm",
-    caption = "Source: Londonbikes.csv",
-    x = "rainfall in mm",
+    title = "Bikes hired with average humidity",
+    caption = "Source: Transport of London",
+    x = "Average humidity",
     y = "Bikes hired"
   ) +
   NULL
+```
 
-ggplot(Borisbikes_clean, aes(
-  x = !is.na(rain),
+In contrast of the rainfall in mm, the humidity does show a strong evidence for a negative correlation with bikes hired.
+
+```{r condition weather data, echo = FALSE, message = FALSE}
+
+Borisbikes_clean %>% 
+  filter(!is.na(rain)) %>% 
+ggplot(aes(
+  x = rain,
   y = bikes_hired,
 )) +
   geom_boxplot() +
   labs(
-    title = "Bikes hired per day",
-    caption = "Source: Londonbikes.csv",
+    title = "Boxplot for bikes hired with rain",
+    caption = "Source: Transport of London",
     x = "",
     y = "Bikes hired"
   ) +
   NULL
 
-ggplot(Borisbikes_clean, aes(
-  x = !is.na(fog),
+Borisbikes_clean %>% 
+filter(!is.na(fog)) %>% 
+ggplot(aes(
+  x = fog,
   y = bikes_hired,
 )) +
   geom_boxplot() +
   labs(
-    title = "Bikes hired per day",
-    caption = "Source: Londonbikes.csv",
+    title = "Boxplot for bikes hired with fog",
+    caption = "Source: Transport of London",
     x = "",
     y = "Bikes hired"
   ) +
   NULL
 
-ggplot(Borisbikes_clean, aes(
-  x = !is.na(thunderstorm),
+Borisbikes_clean %>% 
+filter(!is.na(thunderstorm)) %>% 
+ggplot(aes(
+  x = thunderstorm,
   y = bikes_hired,
 )) +
   geom_boxplot() +
   labs(
-    title = "Bikes hired per day",
-    caption = "Source: Londonbikes.csv",
+    title = "Boxplot for bikes hired with thunderstorm",
+    caption = "Source: Transport of London",
     x = "",
     y = "Bikes hired"
   ) +
   NULL
 
-ggplot(Borisbikes_clean, aes(
-  x = !is.na(snow),
+Borisbikes_clean %>% 
+filter(!is.na(snow)) %>% 
+ggplot(aes(
+  x = snow,
   y = bikes_hired,
 )) +
   geom_boxplot() +
   labs(
-    title = "Bikes hired per day",
-    caption = "Source: Londonbikes.csv",
+    title = "Boxplot for bikes hired with snow",
+    caption = "Source: Transport of London",
     x = "",
     y = "Bikes hired"
   ) +
   NULL
 
 ```
-
-
-
+Thunderstorm and fog pretty much don't affect the bikes hired at all. Rain slightly diminishes the bikes hired. Snow, however, affects the bikes hired quite high.
