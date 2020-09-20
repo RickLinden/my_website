@@ -9,7 +9,7 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-![Soruce: www.ivadriebergen.nl](https://www.iva-driebergen.nl/image/imagefile/1280x854/1446562903.e10c8d3b4a9ca191013d082f20de3bfc.jpg)
+![Source: www.ivadriebergen.nl](https://www.iva-driebergen.nl/image/imagefile/1280x854/1446562903.e10c8d3b4a9ca191013d082f20de3bfc.jpg)
 
 # Automotive Business Management undergraduate.
 
