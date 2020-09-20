@@ -83,7 +83,23 @@
   </url>
   
   <url>
+    <loc>/blogs/aston_martin/</loc>
+  </url>
+  
+  <url>
     <loc>/projects/londonbikesproject/borisbikes/</loc>
+  </url>
+  
+  <url>
+    <loc>/projects/charging_points/charging_points/</loc>
+  </url>
+  
+  <url>
+    <loc>/blogs/iva_driebergen/</loc>
+  </url>
+  
+  <url>
+    <loc>/blogs/lbs/</loc>
   </url>
   
 </urlset>

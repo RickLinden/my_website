@@ -1,0 +1,16 @@
+---
+title: "LBS"
+author: "Rick van der Linden"
+date: "20/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+![source: www.london.edu](https://www.london.edu/-/media/images_2019/header-banner/images-486x486/about-campus-london-hero-486x486.jpg)
+
+# My LBS adventure
+
+This page will feature some of my most memorable experiences at LBS reading for the Masters in anaytics and management.

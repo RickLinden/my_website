@@ -1,0 +1,18 @@
+---
+title: "IVA_Driebergen"
+author: "Rick van der Linden"
+date: "20/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+![Soruce: www.ivadriebergen.nl](https://www.iva-driebergen.nl/image/imagefile/1280x854/1446562903.e10c8d3b4a9ca191013d082f20de3bfc.jpg)
+
+# Automotive Business Management undergraduate.
+
+For my undergraduate I chose to do automotive business management at the IVA Driebergen in The Netherlands. The automotive focus, wide subject range and social skill development were the main reasons I went to this Business School.
+
+During my studies here I have been a treasurer at the student association, student ambassador and have volunteered to represent companies on fairs as sales representative.

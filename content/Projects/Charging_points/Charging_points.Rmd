@@ -1,0 +1,90 @@
+---
+title: "Charging_point_data"
+author: "Rick van der Linden"
+date: "20/09/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(dplyr)
+library(janitor)
+library(lubridate)
+
+charging_points <- read_csv("http://data.dft.gov.uk/electric-chargepoints/electric-chargepoint-analysis-2017-raw-domestics-data.csv")
+```
+![source: www.hoekwater.nl](https://www.hoekwater.nl/wp-content/uploads/2016/04/Oplaadpaal-800x400.jpg)
+
+#Introduction
+
+Charging times are still one of the major downsides of owning and driving electric vehicles. It does not offer the same convenience as just filling up for petrol. Instead charging times can take hours before the vehicle is fully charged. I wanted to find out what the current charging behavior is and if there has been in a change in behavior over time.
+
+For this, I'm using experimental data from the UK government on charging events using OLEV-funded chargepoints. OLEV is a governement intitiative to install charging point in residential areas. The data is from 2017.
+
+First, I will clean the data
+
+```{r clean and glimpse, echo = FALSE}
+charging_points_cleaned <- clean_names(charging_points)
+
+glimpse(charging_points_cleaned)
+
+```
+
+Charging_event  = identfier for charging period
+cpid            = component/part identifier
+start_date      = date at start of charging period
+start_time      = time at start of charing period
+end_date        = date at end of charging period
+end_time        = time at end of charging period
+energy          = energy supplied by each charing period
+plugin_duration = duration of charge
+
+```{r charges, echo = FALSE}
+
+charges_per_day <- charging_points_cleaned %>% 
+  group_by(start_date) %>% 
+  summarise(count = n())
+
+ggplot(charges_per_day, aes(
+  x = start_date,
+  y = count
+)) +
+  geom_line() +
+  geom_smooth(se = FALSE)+
+  NULL
+
+```
+
+There is a stragne dip in charging events in April 2017, which I suspect is a mistake in the data. Overall the charging events have increased monthly.
+
+```{r plugin_duration, echo = FALSE}
+
+ggplot(charging_points_cleaned, aes(
+  x = plugin_duration
+)) +
+  xlim(0, 50
+       ) +
+  geom_density() +
+  NULL
+
+```
+
+This graph shows us the plugin duration density. We can see 2 peaks here. I suspect that this means there are 2 types of chargers. A fast charger and a slower charger. So to check this let's have a look at the kilowatt per hour.
+
+```{r charging speed, echo = FALSE}
+
+KwH_charge <- charging_points_cleaned %>% 
+  mutate(KwH = energy/plugin_duration)
+
+KwH_charge %>% 
+  ggplot(aes(
+    x = KwH
+  )) +
+  xlim(0, 10) +
+  geom_density()
+```
+With this I can confirm that there are probably 2 types of chargers. As the Kilowatt per hour density shows 2 peaks.
+
+# Conclusion
+There is limited data available and there seems to be data missing. Further research needs to be done to get a clearer image. Overall, the no. of charges increased during the research period. The data needs to have an additional column with type of charger, because there seemst to types of charging speeds. this needs to be confirmed by the source of data.

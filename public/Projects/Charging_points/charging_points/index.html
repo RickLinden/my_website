@@ -1,0 +1,141 @@
+<!DOCTYPE HTML>
+<html>
+
+    <head>
+	<meta charset="utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	
+	
+	<meta name="generator" content="Hugo 0.74.3" />
+	<title>Charging_point_data &middot; Rick van der Linden</title>
+	<!-- Stylesheets -->
+	
+	<link rel="stylesheet" href="/css/main.css"/>
+	
+	
+
+	
+
+	<!-- Custom Fonts -->
+	<link href="/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+
+	
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="js/ie/html5shiv.js"></script>
+	<script src="js/ie/html5shiv.jsrespond.min.js"></script>
+	<![endif]-->
+</head>
+
+    <body>
+
+    <!-- Wrapper -->
+        <div id="wrapper">
+
+            <!-- Header -->
+    <header id="header" class="alt">
+        <a href="/" class="logo"><strong>Rick van der Linden</strong> <span></span></a>
+        <nav>
+            <a href="#menu"></a>
+        </nav>
+    </header>
+
+<!-- Menu -->
+    <nav id="menu">
+        <ul class="links">
+            
+
+        </ul>
+        <ul class="actions vertical">
+            
+            
+        </ul>
+    </nav>
+
+        <!-- Main -->
+            <div id="main" class="alt">
+
+                
+                    <section id="one">
+                        <div class="inner">
+                            <header class="major">
+                                <h1>Charging_point_data</h1>
+                            </header>
+                            
+                            
+
+
+<div class="figure">
+<img src="https://www.hoekwater.nl/wp-content/uploads/2016/04/Oplaadpaal-800x400.jpg" alt="" />
+<p class="caption">source: www.hoekwater.nl</p>
+</div>
+<p>#Introduction</p>
+<p>Charging times are still one of the major downsides of owning and driving electric vehicles. It does not offer the same convenience as just filling up for petrol. Instead charging times can take hours before the vehicle is fully charged. I wanted to find out what the current charging behavior is and if there has been in a change in behavior over time.</p>
+<p>For this, I’m using experimental data from the UK government on charging events using OLEV-funded chargepoints. OLEV is a governement intitiative to install charging point in residential areas. The data is from 2017.</p>
+<p>First, I will clean the data</p>
+<pre><code>## Rows: 3,176,803
+## Columns: 8
+## $ charging_event  &lt;dbl&gt; 3177742, 16679268, 16678965, 3177556, 16679057, 317...
+## $ cpid            &lt;chr&gt; &quot;AN21771&quot;, &quot;AN04715&quot;, &quot;AN04849&quot;, &quot;AN21305&quot;, &quot;AN0838...
+## $ start_date      &lt;date&gt; 2017-12-31, 2017-12-31, 2017-12-31, 2017-12-31, 20...
+## $ start_time      &lt;time&gt; 23:59:23, 23:59:00, 23:59:00, 23:57:23, 23:57:00, ...
+## $ end_date        &lt;date&gt; 2018-01-01, 2018-01-01, 2018-01-01, 2018-01-01, 20...
+## $ end_time        &lt;time&gt; 18:20:23, 00:03:00, 13:40:00, 06:30:23, 03:13:00, ...
+## $ energy          &lt;dbl&gt; 8.8, 10.2, 6.2, 9.5, 2.8, 25.7, 9.2, 22.8, 17.0, 11...
+## $ plugin_duration &lt;dbl&gt; 18.35000000, 0.06666667, 13.68333333, 6.55000000, 3...</code></pre>
+<p>Charging_event = identfier for charging period
+cpid = component/part identifier
+start_date = date at start of charging period
+start_time = time at start of charing period
+end_date = date at end of charging period
+end_time = time at end of charging period
+energy = energy supplied by each charing period
+plugin_duration = duration of charge</p>
+<pre><code>## `summarise()` ungrouping output (override with `.groups` argument)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/Projects/Charging_points/Charging_points_files/figure-html/charges-1.png" width="672" /></p>
+<p>There is a stragne dip in charging events in April 2017, which I suspect is a mistake in the data. Overall the charging events have increased monthly.</p>
+<pre><code>## Warning: Removed 55156 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/Projects/Charging_points/Charging_points_files/figure-html/plugin_duration-1.png" width="672" /></p>
+<p>This graph shows us the plugin duration density. We can see 2 peaks here. I suspect that this means there are 2 types of chargers. A fast charger and a slower charger. So to check this let’s have a look at the kilowatt per hour.</p>
+<pre><code>## Warning: Removed 10796 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/Projects/Charging_points/Charging_points_files/figure-html/charging%20speed-1.png" width="672" />
+With this I can confirm that there are probably 2 types of chargers. As the Kilowatt per hour density shows 2 peaks.</p>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>There is limited data available and there seems to be data missing. Further research needs to be done to get a clearer image. Overall, the no. of charges increased during the research period. The data needs to have an additional column with type of charger, because there seemst to types of charging speeds. this needs to be confirmed by the source of data.</p>
+</div>
+
+                        </div>
+                    </section>
+            <!-- Disqus Inject -->
+                
+            </div>
+            
+        <!-- Footer -->
+            
+        </div>
+
+    <!-- Scripts -->
+        <!-- Scripts -->
+    <!-- jQuery -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/skel.min.js"></script>
+    <script src="/js/util.js"></script>
+
+    
+
+    <!-- Main JS -->
+    <script src="/js/main.js"></script>
+
+    
+
+    
+
+    </body>
+</html>

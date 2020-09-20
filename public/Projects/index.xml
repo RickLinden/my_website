@@ -17,7 +17,8 @@
       <pubDate>Sat, 19 Sep 2020 00:00:00 +0000</pubDate>
       
       <guid>/projects/airbnbproject/airbnb_8/</guid>
-      <description>IntroductionCopenhagen, the happiest city in the world, Who doesn’t want to go there! Happiness comes at a price though, you’ll need to find a place to stay. What better way to look for a place to stay than on AirBnB and us being students, would like to know what this will cost us. This is where the MAM program from LBS is already paying itself off.</description>
+      <description>Source: www.ontheluce.com
+IntroductionCopenhagen, the happiest city in the world, Who doesn’t want to go there! Happiness comes at a price though, you’ll need to find a place to stay. What better way to look for a place to stay than on AirBnB and us being students, would like to know what this will cost us. This is where the MAM program from LBS is already paying itself off.</description>
     </item>
     
     <item>
@@ -27,6 +28,18 @@
       
       <guid>/projects/londonbikesproject/borisbikes/</guid>
       <description>A new way to explore LondonIn my first weeks in London I tried to see as much as possible from the city. Together with some newly found LBS friends, we made a plan of visiting as many places as we could before the program at LBS would start. Normally we would walk everywhere, but for the further places you will need public transport. We preferred to stay away from the crowded underground and busses because of the corona risk.</description>
+    </item>
+    
+    <item>
+      <title>Charging_point_data</title>
+      <link>/projects/charging_points/charging_points/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>/projects/charging_points/charging_points/</guid>
+      <description>source: www.hoekwater.nl
+#Introduction
+Charging times are still one of the major downsides of owning and driving electric vehicles. It does not offer the same convenience as just filling up for petrol. Instead charging times can take hours before the vehicle is fully charged. I wanted to find out what the current charging behavior is and if there has been in a change in behavior over time.
+For this, I’m using experimental data from the UK government on charging events using OLEV-funded chargepoints.</description>
     </item>
     
   </channel>
