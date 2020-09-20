@@ -10,7 +10,7 @@ googleAnalytics = ""
 # Enter your disqus shortname to enable comments
 disqusShortname = ""
 
-[params]
+#[params]
   # You can use Markdown syntax for urls [text](//url.to/source)
   # To create multi-line text in strings use the """example Text""" format
   #
@@ -37,27 +37,27 @@ disqusShortname = ""
 
   # Navigation Section
   [params.navigation]
-    title = "Rick van der Linden"
+     title = "Rick van der Linden"
     #subtitle = "By HTML5 Up"
-    menu = "Menu" 
+    #menu = "Menu" 
     # Optional logo as brand stored in img/
     # logo = "logo.png"
 
-    [[params.navigation.links]]
-      name = "Home"
-      url = "#"
+    #[[params.navigation.links]]
+      #name = "Home"
+     # url = "#"
 
-    [[params.navigation.links]]
-      name = "Experience"
-      url = "blogs"
+   # [[params.navigation.links]]
+     # name = "Experience"
+     # url = "blogs"
 
     #[[params.navigation.links]]
       #name = "Generic Blog"
       #url = "blogs/ipsum"
 
-   [[params.navigation.links]]
-      name = "Data projects"
-      url = "elements.html"
+   #[[params.navigation.links]]
+      #name = "Data projects"
+     # url = "elements.html"
 
     # Add custom links here by uncommenting code below. To remove links just delete
     # the [[params.navigation.links]] map associated with that link. Copy and paste
@@ -95,37 +95,37 @@ disqusShortname = ""
       title = "Aston Martin"
       subtitle = "Merchandise & Licensing work experience"
       image = "projects/DBX_image.jpg"
-      url = "blogs/tempus"
+      url = "blogs/Aston_Martin"
       
     [[params.tiles.showcase]]
       title = "London Business School"
       subtitle = "Masters in Analytics and Management"
       image = "projects/london-business-school-Campus.jpg"
-      url = "blogs/ipsum"
+      url = "blogs/LBS"
 
     [[params.tiles.showcase]]
       title = "IVA Driebergen"
       subtitle = "Automotive Business Management undergraduate"
       image = "projects/IVA_image.jpg"
-      url = "blogs/tempus"
+      url = "blogs/iva_driebergen"
 
     [[params.tiles.showcase]]
       title = "Airbnb data project"
-      subtitle = "What variables influence your stay in Copenhagen"
+      subtitle = "What variables influence your stay in Copenhagen?"
       image = "projects/Copenhagen_image.jpg"
       url = "projects/AirBnBproject/Airbnb_8"
 
     [[params.tiles.showcase]]
       title = "Boris bikes data project"
-      subtitle = "What variables influence bike rental figures"
+      subtitle = "What variables influence bike rental figures?"
       image = "projects/santabikes.jpg"
       url = "projects/Londonbikesproject/borisbikes"
 
     [[params.tiles.showcase]]
-      title = "Car data"
-      subtitle = "Averages"
-      image = "pic05.jpg"
-      url = "blogs/ipsum"
+      title = "EV Charging times"
+      subtitle = "How long does electric charging take?"
+      image = "projects/charging_station.jpg"
+      url = "projects/charging_points/charging_points"
 
     #[[params.tiles.showcase]]
      #title = "Etiam"
@@ -134,7 +134,7 @@ disqusShortname = ""
      #url = "blogs/ipsum"
     # You can make more showcases by copy and pasting the code above
 
-  [params.blog]
+  #[params.blog]
     # All blogs defined in their own files. You can find example blogs
     # at 'exampleSite/content/blogs'. Copy the 'blogs' folder into the 'content' directory
     # at the root of this Hugo site.
@@ -150,7 +150,7 @@ disqusShortname = ""
     to break through in the world of automotive tech, using a combination of traditional 
     automotive experience and data analytics. Please click the button underneath to find out more about my experience"""
     buttonText = "Get Started"
-    url = "blogs"
+    #url = "blogs"
 
 
   # Contact section
